@@ -6,15 +6,15 @@ void __real_free(void *ptr);
 
 void *__wrap_malloc(size_t size)
 {
-	void *ptr = __real_malloc(size);
-	printf("malloc(%ld)=%p\n", size, ptr);
+    void *ptr = __real_malloc(size);
+    printf("malloc(%ld)=%p\n", size, ptr);
 
-	return ptr;
+    return ptr;
 }
 
 void __wrap_free(void *ptr)
 {
-	__real_free(ptr);
-	printf("free(%p)\n", ptr);
+    __real_free(ptr);
+    printf("free(%p)\n", ptr);
 }
 #endif

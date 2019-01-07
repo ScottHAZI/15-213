@@ -6,45 +6,45 @@
 
 void *malloc(size_t size)
 {
-	// printf will call malloc
-	// thus we use print_times to avoid infinite iterations
-	static int print_times = 0;
-	print_times ++;
+    // printf will call malloc
+    // thus we use print_times to avoid infinite iterations
+    static int print_times = 0;
+    print_times ++;
 
-	void *(*mallocp)(size_t size) = NULL;
-	char *error;
-	mallocp = dlsym(RTLD_NEXT, "malloc");
-	if ((error = dlerror()) != NULL) {
-		fputs(error, stderr);
-		exit(1);
-	}
-	char *ptr = mallocp(size);
+    void *(*mallocp)(size_t size) = NULL;
+    char *error;
+    mallocp = dlsym(RTLD_NEXT, "malloc");
+    if ((error = dlerror()) != NULL) {
+        fputs(error, stderr);
+        exit(1);
+    }
+    char *ptr = mallocp(size);
 
-	if (print_times == 1)
-		printf("malloc(%ld)=%p\n", size, ptr);
-	print_times--;
+    if (print_times == 1)
+        printf("malloc(%ld)=%p\n", size, ptr);
+    print_times--;
 
-	return ptr;
+    return ptr;
 }
 
 
 void free(void *ptr)
 {
-	void (*freep)(void *) = NULL;
-	char *error;
+    void (*freep)(void *) = NULL;
+    char *error;
 
-	if (!ptr)
-		return;
-	
-	freep = dlsym(RTLD_NEXT, "free");
-	if ((error = dlerror()) != NULL) {
-		fputs(error, stderr);
-		//exit(1);
-		return;
-	}
+    if (!ptr)
+        return;
 
-	freep(ptr);
-	printf("free(%p)\n", ptr);
+    freep = dlsym(RTLD_NEXT, "free");
+    if ((error = dlerror()) != NULL) {
+        fputs(error, stderr);
+        //exit(1);
+        return;
+    }
+
+    freep(ptr);
+    printf("free(%p)\n", ptr);
 }
 
 #endif

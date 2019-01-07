@@ -28,12 +28,12 @@ void trans_67x61(int M, int N, int A[N][M], int B[M][N]);
 char transpose_submit_desc[] = "Transpose submission";
 void transpose_submit(int M, int N, int A[N][M], int B[M][N])
 {
-	if (M == 32 && N == 32)
-		trans_32x32_8x8(M, N, A, B);
-	else if (M == 64 && N == 64)
-		trans_64x64_8x8_4_4x4(M, N, A, B);
-	else if (M == 61 && N == 67)
-		trans_67x61(M, N, A, B);
+    if (M == 32 && N == 32)
+        trans_32x32_8x8(M, N, A, B);
+    else if (M == 64 && N == 64)
+        trans_64x64_8x8_4_4x4(M, N, A, B);
+    else if (M == 61 && N == 67)
+        trans_67x61(M, N, A, B);
 }
 
 /* 
@@ -61,130 +61,130 @@ void trans(int M, int N, int A[N][M], int B[M][N])
 char trans_32x32_8x8_desc[] = "32x32 transpose by 8x8 block";
 void trans_32x32_8x8(int M, int N, int A[N][M], int B[M][N])
 {
-	int i, j, k, l;
-	int tmp[8];
-	for (i = 0; i < 32; i += 8)
-		for (j = 0; j < 32; j += 8)
-			for (k = 0; k < 8; k++)
-			{
-				for (l = 0; l < 8; l++)
-				{
-					tmp[l] = A[i + k][j + l];
-				}
-				for (l = 0; l < 8; l++)
-				{
-					B[j + l][i + k] = tmp[l];
-				}
-			}
+    int i, j, k, l;
+    int tmp[8];
+    for (i = 0; i < 32; i += 8)
+        for (j = 0; j < 32; j += 8)
+            for (k = 0; k < 8; k++)
+            {
+                for (l = 0; l < 8; l++)
+                {
+                    tmp[l] = A[i + k][j + l];
+                }
+                for (l = 0; l < 8; l++)
+                {
+                    B[j + l][i + k] = tmp[l];
+                }
+            }
 }
 
 char trans_64x64_4x4_desc[] = "64x64 transpose by 4x4 block";
 void trans_64x64_4x4(int M, int N, int A[N][M], int B[M][N])
 {
-	int i, j, k, l;
-	int tmp[4];
-	for (i = 0; i < 64; i += 4)
-		for (j = 0; j < 64; j += 4)
-			for (k = 0; k < 4; k++)
-			{
-				for (l = 0; l < 4; l++)
-				{
-					tmp[l] = A[i + k][j + l];
-				}
-				for (l = 0; l < 4; l++)
-				{
-					B[j + l][i + k] = tmp[l];
-				}
-			}
+    int i, j, k, l;
+    int tmp[4];
+    for (i = 0; i < 64; i += 4)
+        for (j = 0; j < 64; j += 4)
+            for (k = 0; k < 4; k++)
+            {
+                for (l = 0; l < 4; l++)
+                {
+                    tmp[l] = A[i + k][j + l];
+                }
+                for (l = 0; l < 4; l++)
+                {
+                    B[j + l][i + k] = tmp[l];
+                }
+            }
 }
 
 char trans_64x64_8x4_desc[] = "64x64 transpose by 8x4 block";
 void trans_64x64_8x4(int M, int N, int A[N][M], int B[M][N])
 {
-	int i, j, k, l;
-	int tmp[4];
-	for (i = 0; i < 64; i += 8)
-		for (j = 0; j < 64; j += 4)
-			for (k = 0; k < 8; k++)
-			{
-				for (l = 0; l < 4; l++)
-				{
-					tmp[l] = A[i + k][j + l];
-				}
-				for (l = 0; l < 4; l++)
-				{
-					B[j + l][i + k] = tmp[l];
-				}
-			}
+    int i, j, k, l;
+    int tmp[4];
+    for (i = 0; i < 64; i += 8)
+        for (j = 0; j < 64; j += 4)
+            for (k = 0; k < 8; k++)
+            {
+                for (l = 0; l < 4; l++)
+                {
+                    tmp[l] = A[i + k][j + l];
+                }
+                for (l = 0; l < 4; l++)
+                {
+                    B[j + l][i + k] = tmp[l];
+                }
+            }
 }
 
 char trans_64x64_8x8_4_4x4_desc[] = "64x64 transpose by 8x8 block and each block is"
-				    "divided into four 4x4 sub-blocks";
+"divided into four 4x4 sub-blocks";
 void trans_64x64_8x8_4_4x4(int M, int N, int A[N][M], int B[M][N])
 {
-	int i, j, k, l;
-	int tmp[8];
-	for (i = 0; i < 64; i += 8)
-		for (j = 0; j < 64; j += 8)
-		{
-			for (k = 0; k < 4; k++)
-			{
-				for (l = 0; l < 8; l++)
-				{
-					tmp[l] = A[i + k][j + l];
-				}
-				for (l = 0; l < 4; l++)
-				{
-					B[j + l][i + k] = tmp[l];
-					B[j + l][i + 4 + k] = tmp[4 + l];
-				}
-			}
+    int i, j, k, l;
+    int tmp[8];
+    for (i = 0; i < 64; i += 8)
+        for (j = 0; j < 64; j += 8)
+        {
+            for (k = 0; k < 4; k++)
+            {
+                for (l = 0; l < 8; l++)
+                {
+                    tmp[l] = A[i + k][j + l];
+                }
+                for (l = 0; l < 4; l++)
+                {
+                    B[j + l][i + k] = tmp[l];
+                    B[j + l][i + 4 + k] = tmp[4 + l];
+                }
+            }
 
-			for (k = 0; k < 4; k++)
-			{	
-				// 1
-				for (l = 0; l < 4; l++)
-				{
-					tmp[l] = B[j + k][i + 4 + l];
-				}
+            for (k = 0; k < 4; k++)
+            {	
+                // 1
+                for (l = 0; l < 4; l++)
+                {
+                    tmp[l] = B[j + k][i + 4 + l];
+                }
 
-				// 2
-				for (l = 4; l < 8; l++)
-				{
-					tmp[l] = A[i + l][j + k];
-				}
-				for (l = 4; l < 8; l++)
-				{
-					B[j + k][i + l] = tmp[l];
-				}
-				
-				// 3
-				for (l = 4; l < 8; l++)
-				{
-					tmp[l] = A[i + l][j + 4 + k];
-				}
+                // 2
+                for (l = 4; l < 8; l++)
+                {
+                    tmp[l] = A[i + l][j + k];
+                }
+                for (l = 4; l < 8; l++)
+                {
+                    B[j + k][i + l] = tmp[l];
+                }
 
-				// 4
-				for (l = 0; l < 8; l++)
-				{
-					B[j + 4 + k][i + l] = tmp[l];
-				}
-			}
-		}
+                // 3
+                for (l = 4; l < 8; l++)
+                {
+                    tmp[l] = A[i + l][j + 4 + k];
+                }
+
+                // 4
+                for (l = 0; l < 8; l++)
+                {
+                    B[j + 4 + k][i + l] = tmp[l];
+                }
+            }
+        }
 }
 
 char trans_67x61_desc[] = "67x61 transpose by 4x4 block";
 void trans_67x61(int M, int N, int A[N][M], int B[M][N])
 {
-	int i, j, k, l;
-	int block_size = 16;
-	for (i = 0; i < 67; i += block_size)
-		for (j = 0; j < 61; j += block_size)
-			for (k = 0; k < block_size && i + k < 67; k++)
-				for (l = 0; l < block_size && j + l < 61; l++)
-				{
-					B[j + l][i + k] = A[i + k][j + l];
-				}
+    int i, j, k, l;
+    int block_size = 16;
+    for (i = 0; i < 67; i += block_size)
+        for (j = 0; j < 61; j += block_size)
+            for (k = 0; k < block_size && i + k < 67; k++)
+                for (l = 0; l < block_size && j + l < 61; l++)
+                {
+                    B[j + l][i + k] = A[i + k][j + l];
+                }
 }
 
 /*
@@ -206,7 +206,7 @@ void registerFunctions()
     //registerTransFunction(trans_32x32_8x8, trans_32x32_8x8_desc);
 
     //registerTransFunction(trans_64x64_4x4, trans_64x64_4x4_desc);
-    
+
     //registerTransFunction(trans_64x64_8x4, trans_64x64_8x4_desc);
 
     //registerTransFunction(trans_64x64_8x8_4_4x4, trans_64x64_8x8_4_4x4_desc);
